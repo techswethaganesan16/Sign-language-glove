@@ -1,0 +1,85 @@
+
+1.SOURCE CODE 
+Flex1 
+Flex2 
+Flex3 
+Flex4 
+Flex5 
+*/ 
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h> 
+LiquidCrystal_I2C lcd(0X20, 16, 2); // 0x27 Address of LCD on i2c | Tinkercad 0x20 -> 
+PCF8574 
+const int FlexSensorPin1 = A0; 
+const int FlexSensorPin2 = A1; 
+const int FlexSensorPin3 = A2; 
+const int FlexSensorPin4 = A3; 
+const int FlexSensorPin5 = 8; 
+void setup() { 
+pinMode(FlexSensorPin1, INPUT); 
+pinMode(FlexSensorPin2, INPUT); 
+pinMode(FlexSensorPin3, INPUT); 
+pinMode(FlexSensorPin4, INPUT); 
+pinMode(FlexSensorPin5, INPUT); 
+Serial.begin(9600); 
+lcd.init(); 
+lcd.backlight(); 
+lcd.setCursor(0, 0); 
+lcd.print("Smart Glove"); 
+} 
+void loop() { 
+int FlexSensorValue1 = analogRead(FlexSensorPin1); 
+int FlexSensorValue2 = analogRead(FlexSensorPin2); 
+int FlexSensorValue3 = analogRead(FlexSensorPin3); 
+int FlexSensorValue4 = analogRead(FlexSensorPin4); 
+int FlexSensorValue5 = digitalRead(FlexSensorPin5); 
+if ((FlexSensorValue1 < 200) && (FlexSensorValue2 < 200) && (FlexSensorValue3 < 200) 
+&& (FlexSensorValue4 < 200) && (FlexSensorValue5 < 200)) { 
+lcd.setCursor(0, 1); 
+lcd.print("byee "); 
+Serial.println("Order 1_2_3_4_5"); 
+} else if ((FlexSensorValue1 < 200) && (FlexSensorValue2 < 200) && (FlexSensorValue3 
+< 200) && (FlexSensorValue4 < 200)) { 
+lcd.setCursor(0, 1); 
+lcd.print("i need water "); 
+Serial.println("Order 1_2_3_4"); 
+} else if ((FlexSensorValue1 < 200) && (FlexSensorValue2 < 200) && (FlexSensorValue3 
+< 200)) { 
+lcd.setCursor(0, 1); 
+lcd.print("had lunch? "); 
+Serial.println("Order 1_2_3"); 
+} else if ((FlexSensorValue1 < 200) && (FlexSensorValue2 < 200)) { 
+lcd.setCursor(0, 1); 
+lcd.print("help me "); 
+Serial.println("Order 1_2"); 
+} else if ((FlexSensorValue3 < 200) && (FlexSensorValue4 < 200)) { 
+lcd.setCursor(0, 1); 
+lcd.print("how are you "); 
+Serial.println("Order 3_4"); 
+} else if (FlexSensorValue1 < 200) { 
+lcd.setCursor(0, 1); 
+lcd.print("hiiii "); 
+Serial.println("Order 1"); 
+} else if (FlexSensorValue2 < 200) { 
+lcd.setCursor(0, 1); 
+lcd.print("wassup "); 
+Serial.println("Order 2"); 
+} else if (FlexSensorValue3 < 200) { 
+lcd.setCursor(0, 1); 
+lcd.print("thankyou "); 
+Serial.println("Order 3"); 
+} else if (FlexSensorValue4 < 200) { 
+lcd.setCursor(0, 1); 
+lcd.print("looking cute "); 
+Serial.println("Order 4"); 
+} else if (FlexSensorValue5 < 200) { 
+lcd.setCursor(0, 1); 
+lcd.print("thumbs up "); 
+Serial.println("Order 5"); 
+} else { 
+lcd.setCursor(0, 1); 
+lcd.print("NO Signal "); 
+Serial.println("NO Signal"); 
+} 
+delay(500); 
+}
